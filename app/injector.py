@@ -15,7 +15,7 @@ class Injector :
             experiment_id = self._create_object_in_db(dns, fault_name,status = "loading",
                                                       db_api_collection_url = f"{db_api_url}/experiments")
             self._create_config_file(dns, experiment_id, fault_name, "/tmp/chaos/tmp")
-            self._run_playbook('insert_agent.yaml', dns)
+            self._run_playbook(playbook_path='./ansible_scripts/insert_agent.yaml', dns = dns)
 
             # Set vars that decide how often to check if experiment is finished
             experiment_finished = False
@@ -31,7 +31,7 @@ class Injector :
                 if max_waited_time <= waited_time :
                     break
 
-            self._run_playbook('remove_agent.yaml', dns)
+            self._run_playbook(playbook_path = './ansible_scripts/remove_agent.yaml',dns = dns)
             self._update_object_in_db(db_api_experiment_url= f"{self.db_api_url}/{experiment_id}",
                                       updated_values = {'status' : 'completed'})
         except PermissionError:
@@ -66,9 +66,9 @@ class Injector :
         with open(conf_file, 'w') as outfile:
             json.dump(data, outfile)
 
-    def _run_playbook(self, dns, playbook_name):
+    def _run_playbook(self, dns, playbook_path):
         os_type = self._get_os_type(dns)
-        subprocess.run(["ansible-playbook", f"{playbook_name}", f'-e "host={dns} os_type={os_type}"'])
+        subprocess.run(["ansible-playbook", f"{playbook_path}", f'-e "host={dns} os_type={os_type}"'])
 
     def _get_os_type(self,dns):
         os_type = "linux"
