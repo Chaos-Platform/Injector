@@ -21,7 +21,7 @@ def inject_fault():
     return output
 
 def call_slave(dns,fault):
-    output = injection_slave.initiate_fault(dns, fault)
+    output = injection_slave.start_expirement(dns, fault)
     return  output
 if __name__ == '__main__':
     app.run(debug=True)
