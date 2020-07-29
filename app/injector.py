@@ -15,7 +15,8 @@ class Injector :
         try:
             experiment_id = self._create_object_in_db(dns, fault_name,status = "loading",
                                                       db_api_collection_url = f"{self.db_api_url}/experiments")
-            self._create_config_file(dns, experiment_id, fault_name, "/tmp/chaos_files/tmp")
+            self._create_config_file(dns, experiment_id, fault_name,
+                                     tmp_dir_path = "/etc/chaos_files/tmp")
             self._run_playbook(playbook_path='./ansible_scripts/insert_agent.yaml', dns = dns)
 
             # Set vars that decide how often to check if experiment is finished
