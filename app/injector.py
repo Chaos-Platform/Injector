@@ -36,6 +36,7 @@ class Injector :
             self._run_playbook(playbook_path = './ansible_scripts/remove_agent.yaml',dns = dns)
             self._update_object_in_db(db_api_experiment_url= f"{self.db_api_url}/{experiment_id}",
                                       updated_values = {'status' : 'completed'})
+            return "Experiment finished"
         except PermissionError:
             return "failed create config file because of permissions error", 400
         except TypeError:
