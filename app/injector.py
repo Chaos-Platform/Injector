@@ -69,8 +69,7 @@ class Injector :
 
     def _run_playbook(self, dns, playbook_path):
         os_type = self._get_os_type(dns)
-        subprocess.run(["ansible-playbook", f"{playbook_path}", f'-e "host={dns} os_type={os_type}"', f'-i {dns},'])
-
+        subprocess.run(["ansible-playbook", f"{playbook_path}", f'-e os_type={os_type}',f'-e host={dns}', f'-i {dns},'])
     def _get_os_type(self,dns):
         os_type = "linux"
         return os_type
