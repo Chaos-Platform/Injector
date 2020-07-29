@@ -4,16 +4,17 @@ import subprocess
 import json
 from pathlib import Path
 
+
 class Injector :
 
     def __init__(self,db_api_url = "http://chaos.db.openshift"):
         self.db_api_url = db_api_url
 
 
-    def start_expirement(self, dns, fault_name):
+    def start_experiment(self, dns, fault_name):
         try:
             experiment_id = self._create_object_in_db(dns, fault_name,status = "loading",
-                                                      db_api_collection_url = f"{db_api_url}/experiments")
+                                                      db_api_collection_url = f"{self.db_api_url}/experiments")
             self._create_config_file(dns, experiment_id, fault_name, "/tmp/chaos/tmp")
             self._run_playbook(playbook_path='./ansible_scripts/insert_agent.yaml', dns = dns)
 
