@@ -1,4 +1,4 @@
-FROM tiangolo/uwsgi-nginx-flask:python3.6
+FROM tiangolo/uwsgi-nginx-flask:python3.7
 
 COPY ./extra_files/nginx.conf /etc/nginx/conf.d/nginx.conf
 
@@ -6,6 +6,9 @@ COPY ./extra_files/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 COPY ./app /app
+
+
+
 
 #ENV LISTEN_PORT 5002
 #ENV DB_API="http://52.255.160.180:5001"
