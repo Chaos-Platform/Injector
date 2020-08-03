@@ -18,4 +18,4 @@ COPY ./app /app
 #RUN yum -y install python-devel krb5-devel krb5-libs krb5-workstation
 #RUN yum install kinit
 
-#RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt
