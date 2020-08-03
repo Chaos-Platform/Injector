@@ -2,7 +2,7 @@ FROM tiangolo/uwsgi-nginx-flask:python3.6
 
 COPY ./extra_files/nginx.conf /etc/nginx/conf.d/nginx.conf
 
-COPY entrypoint.sh /entrypoint.sh
+COPY ./extra_files/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 COPY ./app /app
