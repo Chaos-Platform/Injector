@@ -10,7 +10,6 @@ class Injector :
     def __init__(self,db_api_url = "http://chaos.db.openshift"):
         self.db_api_url = db_api_url
 
-
     def start_experiment(self, dns, fault_name):
         try:
             experiment_id = self._create_object_in_db(dns, fault_name,status = "loading",
@@ -42,7 +41,6 @@ class Injector :
         except TypeError:
             return  "failed to contact db because of a bad json format", 400
 
-
     @staticmethod
     def _create_object_in_db(dns, fault_name, status, db_api_collection_url):
         experiment_object = {'id' : f"{dns}-{fault_name}-{Injector._get_current_time()}",
@@ -72,6 +70,7 @@ class Injector :
     def _run_playbook(self, dns, playbook_path):
         os_type = self._get_os_type(dns)
         subprocess.run(["ansible-playbook", f"{playbook_path}", f'-e os_type={os_type}',f'-e host={dns}', f'-i {dns},'])
+
     def _get_os_type(self,dns):
         os_type = "linux"
         return os_type
