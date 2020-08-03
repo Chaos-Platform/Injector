@@ -1,5 +1,5 @@
 requests
 flask
-ansible
-pywinrm
-pywinrm[kerberos]
+#ansible
+#pywinrm
+#pywinrm[kerberos]
