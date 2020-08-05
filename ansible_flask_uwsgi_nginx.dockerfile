@@ -1,5 +1,8 @@
 FROM tiangolo/uwsgi-nginx-flask:python3.7
 
+RUN export DEBIAN_FRONTEND=noninteractive
+
+
 # Install ansible with kerberos
 RUN apt-get update && apt-get install -y gcc python-dev libkrb5-dev\
  python-pip krb5-user\
