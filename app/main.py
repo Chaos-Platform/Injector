@@ -3,7 +3,7 @@ import injector
 import os
 
 db_url = os.environ.get("DB_API", "http://chaos.db.openshift:5001")
-server_port = int(os.environ.get("SERVER_PORT", 5002))
+listen_port = int(os.environ.get("LISTEN_PORT", 5002))
 
 
 app = Flask(__name__)
@@ -25,4 +25,4 @@ def call_slave(dns,fault):
     return  output
 if __name__ == '__main__':
     app.run(debug=True)
-    app.run(host='0.0.0.0', port= server_port)
+    app.run(host='0.0.0.0', port= listen_port)
