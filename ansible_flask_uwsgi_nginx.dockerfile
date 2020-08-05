@@ -1,12 +1,6 @@
 FROM tiangolo/uwsgi-nginx-flask:python3.7
 
-RUN export DEBIAN_FRONTEND=noninteractive
-
-ENV LISTEN_PORT 5002
-
-RUN whoami
-RUN su root
-RUN whoami
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Install ansible with kerberos
 #RUN apt-get update && apt -y -qq install gcc python-dev libkrb5-dev\
