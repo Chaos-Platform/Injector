@@ -4,7 +4,7 @@ RUN export DEBIAN_FRONTEND=noninteractive
 
 
 # Install ansible with kerberos
-RUN apt-get update && apt-get  -E apt -y -qq install gcc python-dev libkrb5-dev\
+RUN apt-get update && sudo  -E apt -y -qq install gcc python-dev libkrb5-dev\
  python-pip krb5-user\
 && rm -rf /var/lib/apt/lists/*
 
