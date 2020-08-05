@@ -8,6 +8,5 @@ COPY ./extra_files/fault_runner.py /etc/chaos_files/fault_runner.pyc
 
 COPY ./app /app
 
-WORKDIR /app
 
 RUN pip install -r requirements.txt
