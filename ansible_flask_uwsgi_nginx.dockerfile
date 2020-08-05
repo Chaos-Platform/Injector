@@ -8,7 +8,6 @@ RUN apt-get update && apt -y -qq install gcc python-dev libkrb5-dev\
 && rm -rf /var/lib/apt/lists/*
 
 # Install pythons modules needed for ansible
-RUN pip install –upgrade pip
 RUN pip install pywinrm pywinrm[kerberos] ansible
 
 # Copy kerberos conf file
