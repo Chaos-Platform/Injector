@@ -4,6 +4,10 @@ RUN export DEBIAN_FRONTEND=noninteractive
 
 ENV LISTEN_PORT 5002
 
+RUN whoami
+RUN su root
+RUN whoami
+
 # Install ansible with kerberos
 #RUN apt-get update && apt -y -qq install gcc python-dev libkrb5-dev\
 # python-pip krb5-user\
