@@ -4,7 +4,6 @@ import subprocess
 import json
 from pathlib import Path
 
-
 class Injector :
 
     def __init__(self,db_api_url = "http://chaos.db.openshift"):
@@ -40,6 +39,8 @@ class Injector :
             return "failed create config file because of permissions error", 400
         except TypeError:
             return  "failed to contact db because of a bad json format", 400
+        except ValueError:
+            return "failed because content doesnt exist in db", 400
 
     @staticmethod
     def _create_object_in_db(dns, fault_name, status, db_api_collection_url):
@@ -72,7 +73,8 @@ class Injector :
         subprocess.run(["ansible-playbook", f"{playbook_path}", f'-e os_type={os_type}',f'-e host={dns}', f'-i {dns},'])
 
     def _get_os_type(self,dns):
-        os_type = "linux"
+        server_object = requests.get(f"{self.db_api_url}/server/{dns}").json()
+        os_type = server_object['os_type']
         return os_type
 
     @staticmethod
