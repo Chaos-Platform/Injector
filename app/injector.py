@@ -24,17 +24,20 @@ class Injector :
             max_waited_time = 600
             # Wait for experiment to finish and then clean the victim.
             while not experiment_finished :
-                experiment_finished = self._is_expirement_finished(
-                    db_api_experiment_url=f"{self.db_api_url}/experiments/{experiment_id}")
-                sleep(pause)
+                experiment_finished = self._is_expirement_finished(db_api_experiment_url=
+                                                                   f"{self.db_api_url}/experiments/{experiment_id}")
+                if experiment_finished :
+                    status = "completed"
                 waited_time = waited_time + pause
                 if max_waited_time <= waited_time :
+                    status = "timed-out"
                     break
+                sleep(pause)
 
             self._run_playbook(playbook_path = './ansible_scripts/remove_agent.yaml',dns = dns)
             self._update_object_in_db(db_api_experiment_url= f"{self.db_api_url}/{experiment_id}",
-                                      updated_values = {'status' : 'completed'})
-            return "Experiment finished"
+                                      updated_values = {'status' : status})
+            return "Experiment finished", 200
         except PermissionError:
             return "failed create config file because of permissions error", 400
         except TypeError:
